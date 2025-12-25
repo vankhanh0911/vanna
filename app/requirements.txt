@@ -1,0 +1,20 @@
+# Vanna AI dependencies
+vanna
+fastapi
+uvicorn[standard]
+
+# MySQL database support
+pymysql
+cryptography
+mysqlclient
+
+# Anthropic Claude integration
+anthropic
+
+# Additional dependencies
+python-dotenv
+pydantic
+ipython
+langfuse
+chromadb
+

@@ -8,6 +8,7 @@ from vanna.core.user import RequestContext
 from vanna.core.user import User
 from vanna.core.user import UserResolver
 from vanna.integrations.anthropic import AnthropicLlmService
+from vanna.integrations.chromadb import ChromaAgentMemory
 from vanna.integrations.local.agent_memory import DemoAgentMemory
 from vanna.integrations.mysql import MySQLRunner  # Changed from SqliteRunner
 from vanna.servers.fastapi import VannaFastAPIServer
@@ -17,11 +18,12 @@ from vanna.tools.agent_memory import SaveQuestionToolArgsTool
 from vanna.tools.agent_memory import SaveTextMemoryTool
 from vanna.tools.agent_memory import SearchSavedCorrectToolUsesTool
 
+from langfuse_system_prompt import LangfuseManagedSystemPromptBuilder
 from system_prompt import \
     CustomSystemPromptBuilder  # Import your custom system prompt
 
 # Configure your LLM
-llm = AnthropicLlmService(model="claude-sonnet-4-5", api_key=os.getenv("ANTHROPIC_API_KEY"))
+llm = AnthropicLlmService(model="claude-haiku-4-5", api_key=os.getenv("ANTHROPIC_API_KEY"))
 
 # Configure your MySQL database connection
 # Using environment variables from .env file
@@ -70,7 +72,7 @@ agent = Agent(
     tool_registry=tools,
     user_resolver=user_resolver,
     agent_memory=agent_memory,
-    system_prompt_builder=CustomSystemPromptBuilder(),
+    system_prompt_builder=LangfuseManagedSystemPromptBuilder(),
     config=AgentConfig(max_tool_iterations=20),
 )
 
